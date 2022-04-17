@@ -55,18 +55,21 @@ public class BookingsDao {
 
     public List<BookingClass> getUserBookings(int currentUserID) {
         PreparedStatement pstmt;
+        ResultSet rs = null;
         List<BookingClass> bookings = new ArrayList();
         try {
-            String searchQuery = "";
+            String searchQuery;
             if (currentUserID == -1) {
                 searchQuery = "SELECT * FROM registration";
+                pstmt = connection.prepareStatement(searchQuery);
+                rs = pstmt.executeQuery();
             } else {
                 searchQuery = "SELECT * FROM registration where user_id=?";
+                pstmt = (PreparedStatement) connection.prepareStatement(searchQuery);
+                pstmt.setInt(1, currentUserID);
+                rs = pstmt.executeQuery();
             }
-            pstmt = (PreparedStatement) connection.prepareStatement(searchQuery);
-            pstmt.setInt(1, currentUserID);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
+            while (rs !=null && rs.next()) {
                 BookingClass booking = new BookingClass();
                 booking.setId(rs.getInt("id"));
                 booking.setUserID(rs.getInt("user_id"));
@@ -77,7 +80,7 @@ public class BookingsDao {
             }
             pstmt.close();
         } catch (SQLException e) {
-            return new ArrayList<>(); //Empty Array
+            e.printStackTrace();
         }
         return bookings;
     }
