@@ -6,7 +6,9 @@
 package com.humber.services;
 
 import com.humber.database.BookingsDao;
+import com.humber.database.ClassesDao;
 import com.humber.models.BookingClass;
+import com.humber.utils.Utils;
 import java.util.Date;
 import java.util.List;
 import javax.jws.WebService;
@@ -18,17 +20,21 @@ import javax.jws.WebService;
 @WebService(endpointInterface = "com.humber.interfaces.IBooking")
 public class Booking {
 
-    public String createBooking(int userID, Date scheduledDay, String className, String location) {
+    public String createBooking(int userID, String scheduledDayString, int classID, String location) {
         try {
             BookingsDao bookingsDao = BookingsDao.getBookingsDaoInstance();
-            BookingClass booking = new BookingClass(-1, location, scheduledDay, userID, -1, className);
+            ClassesDao classesDao = ClassesDao.getClassesDaoInstance();
+      
+            String className = classesDao.getClassNameByID(classID);
+            String bookingDate = Utils.parseDateString(scheduledDayString);
+            BookingClass booking = new BookingClass(-1, location, bookingDate, userID, className);
             int creationStatus = bookingsDao.createBooking(booking);
             if (creationStatus == 1) {
                 return "success"; //User Created
             }
             return "failed";
         } catch (Exception e) {
-            System.out.println("Register User Method Error");
+            System.out.println("Create Booking Method Error: "+ e.toString());
         }
         return "failed";
     }

@@ -18,7 +18,7 @@ import javax.jws.WebService;
 @WebService
 public interface IBooking {
     @WebMethod(operationName = "createBooking")
-    public String createBooking(int userID, Date scheduledDay, String className, String location);
+    public String createBooking(int userID, String scheduledDayString, int classID, String location);
     
     @WebMethod(operationName = "getUserBookings")
     public List<BookingClass> getUserBookings(int userID);

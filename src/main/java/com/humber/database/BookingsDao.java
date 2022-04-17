@@ -41,7 +41,7 @@ public class BookingsDao {
         try {
             PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(sqlQuery);
             pstmt.setInt(1, booking.getUserID());
-            pstmt.setDate(2, new java.sql.Date(booking.getScheduledDate().getTime()));
+            pstmt.setString(2, booking.getScheduledDate());
             pstmt.setString(3, booking.getLocation());
             pstmt.setString(4, booking.getClass_name());
             pstmt.executeUpdate();
@@ -64,9 +64,8 @@ public class BookingsDao {
             while (rs.next()) {
                 BookingClass booking = new BookingClass();
                 booking.setId(rs.getInt("id"));
-                booking.setClass_id(rs.getInt("class_id"));
                 booking.setUserID(rs.getInt("user_id"));
-                booking.setScheduledDate(rs.getDate("scheduled_day"));
+                booking.setScheduledDate(rs.getString("scheduled_day"));
                 booking.setLocation(rs.getString("location"));
                 booking.setClass_name(rs.getString("class_name"));
                 bookings.add(booking);

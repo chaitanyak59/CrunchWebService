@@ -14,20 +14,18 @@ import java.util.Date;
 public class BookingClass {
     private int id;
     private String location;
-    private Date scheduledDate;
+    private String scheduledDate;
     private int userID;
-    private int class_id;
     private String class_name;
 
     public BookingClass() {
     }
 
-    public BookingClass(int id, String location, Date scheduledDate, int userID, int class_id, String className) {
+    public BookingClass(int id, String location, String scheduledDate, int userID, String className) {
         this.id = id;
         this.location = location;
         this.scheduledDate = scheduledDate;
         this.userID = userID;
-        this.class_id = class_id;
         this.class_name = className;
     }
 
@@ -55,11 +53,11 @@ public class BookingClass {
         this.location = location;
     }
 
-    public Date getScheduledDate() {
+    public String getScheduledDate() {
         return scheduledDate;
     }
 
-    public void setScheduledDate(Date scheduledDate) {
+    public void setScheduledDate(String scheduledDate) {
         this.scheduledDate = scheduledDate;
     }
 
@@ -69,13 +67,5 @@ public class BookingClass {
 
     public void setUserID(int userID) {
         this.userID = userID;
-    }
-
-    public int getClass_id() {
-        return class_id;
-    }
-
-    public void setClass_id(int class_id) {
-        this.class_id = class_id;
-    }  
+    } 
 }
