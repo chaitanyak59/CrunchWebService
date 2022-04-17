@@ -82,6 +82,7 @@ public class UsersDao {
                 user.setEmail(rs.getString("email"));
                 user.setName(rs.getString("name"));
                 user.setHash(rs.getBytes("hash"));
+                user.setIsAdmin(rs.getBoolean("is_admin"));
                 user.setMembership_id(rs.getInt("membership_id"));
             }
             pstmt.close();
@@ -111,5 +112,19 @@ public class UsersDao {
             return new ArrayList<>(); //Empty Array
         }
         return users;
+    }
+    
+    public boolean addMembership(int userID, int membershipID) {
+        try {
+            String query = "UPDATE crunch.users SET membership_id=?,is_pro_member=1 WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, membershipID);
+            ps.setInt(2, userID);
+            System.out.println("Userid:"+ userID+ "  MemID:"+membershipID);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

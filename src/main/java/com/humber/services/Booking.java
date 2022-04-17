@@ -39,9 +39,9 @@ public class Booking {
         return "failed";
     }
     
-    public boolean deleteBooking(int userID, int bookingID) {
+    public boolean deleteBooking(int bookingID) {
         BookingsDao bookingsDao = BookingsDao.getBookingsDaoInstance();
-        return bookingsDao.deleteBooking(userID, bookingID);
+        return bookingsDao.deleteBooking(bookingID);
     }
     
      public List<BookingClass> getUserBookings(int userID) {

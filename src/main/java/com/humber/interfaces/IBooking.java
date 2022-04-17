@@ -24,5 +24,5 @@ public interface IBooking {
     public List<BookingClass> getUserBookings(int userID);
     
     @WebMethod(operationName = "deleteBooking")
-    public boolean deleteBooking(int userID, int bookingID);
+    public boolean deleteBooking(int bookingID);
 }

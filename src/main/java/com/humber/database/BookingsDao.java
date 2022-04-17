@@ -57,7 +57,12 @@ public class BookingsDao {
         PreparedStatement pstmt;
         List<BookingClass> bookings = new ArrayList();
         try {
-            String searchQuery = "SELECT * FROM registration where user_id=?";
+            String searchQuery = "";
+            if (currentUserID == -1) {
+                searchQuery = "SELECT * FROM registration";
+            } else {
+                searchQuery = "SELECT * FROM registration where user_id=?";
+            }
             pstmt = (PreparedStatement) connection.prepareStatement(searchQuery);
             pstmt.setInt(1, currentUserID);
             ResultSet rs = pstmt.executeQuery();
@@ -77,12 +82,11 @@ public class BookingsDao {
         return bookings;
     }
 
-    public boolean deleteBooking(int userID, int bookingID) {
+    public boolean deleteBooking(int bookingID) {
         try {
-            String query = "DELETE FROM registration WHERE user_id=? AND id=?";
+            String query = "DELETE FROM registration WHERE AND id=?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, userID);
-            ps.setInt(2, bookingID);
+            ps.setInt(1, bookingID);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
         }
