@@ -87,7 +87,7 @@ public class BookingsDao {
 
     public boolean deleteBooking(int bookingID) {
         try {
-            String query = "DELETE FROM registration WHERE AND id=?";
+            String query = "DELETE FROM registration WHERE id=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, bookingID);
             return ps.executeUpdate() > 0;
